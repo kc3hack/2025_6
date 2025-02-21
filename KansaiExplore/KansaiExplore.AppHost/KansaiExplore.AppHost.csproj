@@ -1,22 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0" />
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsAspireHost>true</IsAspireHost>
-    <UserSecretsId>e4fa9c06-7f1b-4335-a488-da48806d7130</UserSecretsId>
+    <UserSecretsId>3237e2fc-c2e3-464e-9cb7-472928bfe3ec</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KansaiExplore\KansaiExplore\KansaiExplore.csproj" />
+    <ProjectReference Include="..\KansaiExplore\KansaiExplore.csproj" />
   </ItemGroup>
 
 </Project>
