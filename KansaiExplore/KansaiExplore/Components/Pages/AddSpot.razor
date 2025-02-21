@@ -1,13 +1,28 @@
 ﻿@page "/addspot"
-@using Microsoft.AspNetCore.Authentication;
-@attribute [Microsoft.AspNetCore.Authorization.Authorize]
+@using Microsoft.AspNetCore.Authorization
+@using System.ComponentModel.DataAnnotations
+@using KansaiExplore.Data
 
-<h3>AddSpot</h3>
-<AuthorizeView>
+@inject NavigationManager NavigationManager
 
-</AuthorizeView>
+@attribute [Authorize]
 
+<PageTitle>スポットの追加</PageTitle>
+<h3>スポットの追加</h3>
+
+<div class="row">
+    <section>
+
+    </section>
+</div>
 
 @code {
+    [CascadingParameter]
+    private HttpContent HttpContent { get; set; } = default!;
 
+    private sealed class SpotInputModel
+    {
+        public string SpotName { get; set; } = "";
+        public string SpotDesc { get; set; } = "";
+    }
 }
