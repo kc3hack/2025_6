@@ -1,4 +1,12 @@
-﻿<h3>AddSpot</h3>
+﻿@page "/addspot"
+@using Microsoft.AspNetCore.Authentication;
+@attribute [Microsoft.AspNetCore.Authorization.Authorize]
+
+<h3>AddSpot</h3>
+<AuthorizeView>
+
+</AuthorizeView>
+
 
 @code {
 
