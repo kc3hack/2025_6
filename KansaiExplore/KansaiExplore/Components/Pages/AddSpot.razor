@@ -2,27 +2,61 @@
 @using Microsoft.AspNetCore.Authorization
 @using System.ComponentModel.DataAnnotations
 @using KansaiExplore.Data
+@using Microsoft.EntityFrameworkCore
 
 @inject NavigationManager NavigationManager
-
+@inject IDbContextFactory<SpotDbContext> DBFactory
 @attribute [Authorize]
-
+<script src="leaflet.js"></script>
 <PageTitle>スポットの追加</PageTitle>
-<h3>スポットの追加</h3>
 
+<h3>スポットの追加</h3>
 <div class="row">
     <section>
-
+        <EditForm Model="SpotInput" FormName="addSpot" OnValidSubmit="Add">
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="SpotInput.SpotName" class="form-control" aria-required="true"/>
+                <label class="form-label" for="spot-name">スポットの名前</label>
+            </div>
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="SpotInput.SpotDesc" class="form-control" aria-required="true"/>
+                <label class="form-label" for="spot-desc">スポットの説明</label>
+            </div>
+            <div>
+                <button type="submit" class="w-100 btn btn-primary">追加</button>
+            </div>
+        </EditForm>
     </section>
 </div>
 
 @code {
     [CascadingParameter]
     private HttpContent HttpContent { get; set; } = default!;
+    [SupplyParameterFromForm]
+    private SpotInputModel SpotInput { get; set; } = new();
+
+    private async Task Add()
+    {
+        var spotData = new SpotDbContext.NicheSpotData
+        {
+            Id = Guid.NewGuid(),
+            SpotName = SpotInput.SpotName,
+            SpotDescription = SpotInput.SpotDesc,
+            Choordinates = "23.4340, 135.22134",
+            CreatedAt = DateTime.Now,
+            MediaUrl = "localhost/medias/16384",
+            CreatedBy = Guid.NewGuid()
+        };
+
+        using var dbFactory = DBFactory.CreateDbContext();
+        dbFactory.Add(spotData);
+    }
 
     private sealed class SpotInputModel
     {
+        [Required(ErrorMessage ="必須項目です")]
         public string SpotName { get; set; } = "";
+        [Required(ErrorMessage = "必須項目です。")]
         public string SpotDesc { get; set; } = "";
     }
 }

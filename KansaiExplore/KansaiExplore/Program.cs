@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using KansaiExplore.Components;
 using KansaiExplore.Components.Account;
 using KansaiExplore.Data;
+using KansaiExplore;
+using KansaiExplore.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,9 +36,11 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager()
     .AddDefaultTokenProviders();
+builder.Services.AddDbContext<SpotDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("db")));
+builder.Services.AddScoped<ISpotService, SpotService>();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
-
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
