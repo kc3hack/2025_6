@@ -21,8 +21,8 @@ namespace KansaiExplore.Data.Shared
         [Column("created_at")]
         public DateTimeOffset CreatedAt { get; set; }
         [Column("latitude")]
-        public decimal Latitude { get; set; }
+        public double Latitude { get; set; }
         [Column("longitude")]
-        public decimal Longitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

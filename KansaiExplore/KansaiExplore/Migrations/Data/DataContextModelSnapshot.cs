@@ -41,12 +41,12 @@ namespace KansaiExplore.Migrations.Data
                         .HasColumnType("uuid")
                         .HasColumnName("created_by");
 
-                    b.Property<decimal>("Latitude")
-                        .HasColumnType("numeric")
+                    b.Property<double>("Latitude")
+                        .HasColumnType("double precision")
                         .HasColumnName("latitude");
 
-                    b.Property<decimal>("Longitude")
-                        .HasColumnType("numeric")
+                    b.Property<double>("Longitude")
+                        .HasColumnType("double precision")
                         .HasColumnName("longitude");
 
                     b.Property<string>("MediaUrl")
@@ -71,12 +71,12 @@ namespace KansaiExplore.Migrations.Data
                     b.HasData(
                         new
                         {
-                            Id = new Guid("cf24d8e7-48cf-42a8-9828-0ed5eea8ab03"),
+                            Id = new Guid("70b41be5-9914-4bc8-871a-c9724121e5bc"),
                             Choordinates = "13333,1111",
-                            CreatedAt = new DateTimeOffset(new DateTime(2025, 2, 23, 13, 0, 24, 391, DateTimeKind.Unspecified).AddTicks(3534), new TimeSpan(0, 9, 0, 0, 0)),
-                            CreatedBy = new Guid("f93f84f8-c150-437f-b62a-c015ca92a41c"),
-                            Latitude = 0m,
-                            Longitude = 0m,
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 2, 23, 13, 32, 32, 719, DateTimeKind.Unspecified).AddTicks(4849), new TimeSpan(0, 9, 0, 0, 0)),
+                            CreatedBy = new Guid("bcff8153-539f-46c8-83a1-f0094c126c96"),
+                            Latitude = 0.0,
+                            Longitude = 0.0,
                             MediaUrl = "example.com",
                             SpotDescription = "てすとだよ",
                             SpotName = "Test"

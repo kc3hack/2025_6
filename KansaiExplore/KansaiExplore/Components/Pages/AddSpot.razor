@@ -23,6 +23,14 @@
                 <InputText @bind-Value="SpotInput.SpotDesc" class="form-control" aria-required="true"/>
                 <label class="form-label" for="spot-desc">スポットの説明</label>
             </div>
+            <div class="form-floating mb-3">
+                <InputNumber @bind-Value="SpotInput.Latitude" class="form-control" aria-required="true"/>
+                <label class="form-label">緯度</label>
+            </div>
+            <div class="form-floating mb-3">
+                <InputNumber @bind-Value="SpotInput.Longitude" class="form-control" aria-required="true" />
+                <label class="form-label">経度</label>
+            </div>
             <div>
                 <button type="submit" class="w-100 btn btn-primary">追加</button>
             </div>
@@ -46,7 +54,9 @@
             Choordinates = "23.4340, 135.22134",
             CreatedAt = DateTimeOffset.UtcNow,
             MediaUrl = "localhost/medias/16384",
-            CreatedBy = Guid.NewGuid()
+            CreatedBy = Guid.NewGuid(),
+            Longitude = SpotInput.Longitude,
+            Latitude = SpotInput.Latitude
         };
         using var context = DbContextFactory.CreateDbContext();
         context.kansaispot.Add(spotData);
@@ -61,5 +71,11 @@
         public string SpotName { get; set; } = "";
         [Required(ErrorMessage = "必須項目です。")]
         public string SpotDesc { get; set; } = "";
+        [Required(ErrorMessage ="必須項目です")]
+        [Range(10, 360, ErrorMessage ="値が不正です。やり直してください。")]
+        public double Longitude { get; set; } = 0;
+        [Required(ErrorMessage ="必須項目です")]
+        [Range(10, 360, ErrorMessage = "値が不正です。やり直してください。")]
+        public double Latitude { get; set; } = 0;
     }
 }
