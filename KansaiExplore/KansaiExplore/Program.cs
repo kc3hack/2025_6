@@ -5,6 +5,7 @@ using KansaiExplore.Components;
 using KansaiExplore.Components.Account;
 using KansaiExplore.Data;
 using KansaiExplore;
+using KansaiExplore.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDbContextFactory<DataContext>(options =>
 options.UseNpgsql(builder.Configuration.GetConnectionString("db")));
+builder.Services.AddScoped<INearSpots, NearSpots>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
