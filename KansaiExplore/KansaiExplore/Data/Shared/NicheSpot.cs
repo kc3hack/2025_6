@@ -24,5 +24,7 @@ namespace KansaiExplore.Data.Shared
         public double Latitude { get; set; }
         [Column("longitude")]
         public double Longitude { get; set; }
+        [Column("valuation")]
+        public string Valuation { get; set; }
     }
 }

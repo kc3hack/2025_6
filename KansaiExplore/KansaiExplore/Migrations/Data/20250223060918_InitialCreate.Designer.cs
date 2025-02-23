@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KansaiExplore.Migrations.Data
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250223043233_InitialCreate")]
+    [Migration("20250223060918_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -67,6 +67,11 @@ namespace KansaiExplore.Migrations.Data
                         .HasColumnType("text")
                         .HasColumnName("spot_name");
 
+                    b.Property<string>("Valuation")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("valuation");
+
                     b.HasKey("Id");
 
                     b.ToTable("kansaispot");
@@ -74,15 +79,16 @@ namespace KansaiExplore.Migrations.Data
                     b.HasData(
                         new
                         {
-                            Id = new Guid("70b41be5-9914-4bc8-871a-c9724121e5bc"),
+                            Id = new Guid("28b42569-ca64-47f0-a866-0d0ee4af8b1b"),
                             Choordinates = "13333,1111",
-                            CreatedAt = new DateTimeOffset(new DateTime(2025, 2, 23, 13, 32, 32, 719, DateTimeKind.Unspecified).AddTicks(4849), new TimeSpan(0, 9, 0, 0, 0)),
-                            CreatedBy = new Guid("bcff8153-539f-46c8-83a1-f0094c126c96"),
-                            Latitude = 0.0,
-                            Longitude = 0.0,
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 2, 23, 15, 9, 17, 861, DateTimeKind.Unspecified).AddTicks(9358), new TimeSpan(0, 9, 0, 0, 0)),
+                            CreatedBy = new Guid("b0ce9f2f-a206-43ee-849d-2013add0fd58"),
+                            Latitude = 16384.0,
+                            Longitude = 65536.0,
                             MediaUrl = "example.com",
                             SpotDescription = "てすとだよ",
-                            SpotName = "Test"
+                            SpotName = "Test",
+                            Valuation = "Test"
                         });
                 });
 #pragma warning restore 612, 618

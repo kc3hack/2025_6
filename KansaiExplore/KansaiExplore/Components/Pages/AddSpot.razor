@@ -31,6 +31,10 @@
                 <InputNumber @bind-Value="SpotInput.Longitude" class="form-control" aria-required="true" />
                 <label class="form-label">経度</label>
             </div>
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="SpotInput.Valuation" class="form-control"/>
+                <label class="form-label">評価</label>
+            </div>
             <div>
                 <button type="submit" class="w-100 btn btn-primary">追加</button>
             </div>
@@ -56,13 +60,15 @@
             MediaUrl = "localhost/medias/16384",
             CreatedBy = Guid.NewGuid(),
             Longitude = SpotInput.Longitude,
-            Latitude = SpotInput.Latitude
+            Latitude = SpotInput.Latitude,
+            Valuation = SpotInput.Valuation
         };
         using var context = DbContextFactory.CreateDbContext();
         context.kansaispot.Add(spotData);
         await context.SaveChangesAsync();
         // using var dbFactory = DBFactory.CreateDbContext();
         // dbFactory.Add(spotData);
+        NavigationManager.NavigateTo("/");
     }
 
     private sealed class SpotInputModel
@@ -77,5 +83,6 @@
         [Required(ErrorMessage ="必須項目です")]
         [Range(10, 360, ErrorMessage = "値が不正です。やり直してください。")]
         public double Latitude { get; set; } = 0;
+        public string Valuation { get; set; } = "";
     }
 }

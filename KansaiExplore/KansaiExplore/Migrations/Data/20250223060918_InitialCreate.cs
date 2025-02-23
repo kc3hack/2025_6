@@ -23,7 +23,8 @@ namespace KansaiExplore.Migrations.Data
                     media_url = table.Column<string>(type: "text", nullable: false),
                     created_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     latitude = table.Column<double>(type: "double precision", nullable: false),
-                    longitude = table.Column<double>(type: "double precision", nullable: false)
+                    longitude = table.Column<double>(type: "double precision", nullable: false),
+                    valuation = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,8 +33,8 @@ namespace KansaiExplore.Migrations.Data
 
             migrationBuilder.InsertData(
                 table: "kansaispot",
-                columns: new[] { "Id", "choordinates", "created_at", "created_by", "latitude", "longitude", "media_url", "spot_description", "spot_name" },
-                values: new object[] { new Guid("70b41be5-9914-4bc8-871a-c9724121e5bc"), "13333,1111", new DateTimeOffset(new DateTime(2025, 2, 23, 13, 32, 32, 719, DateTimeKind.Unspecified).AddTicks(4849), new TimeSpan(0, 9, 0, 0, 0)), new Guid("bcff8153-539f-46c8-83a1-f0094c126c96"), 0.0, 0.0, "example.com", "てすとだよ", "Test" });
+                columns: new[] { "Id", "choordinates", "created_at", "created_by", "latitude", "longitude", "media_url", "spot_description", "spot_name", "valuation" },
+                values: new object[] { new Guid("28b42569-ca64-47f0-a866-0d0ee4af8b1b"), "13333,1111", new DateTimeOffset(new DateTime(2025, 2, 23, 15, 9, 17, 861, DateTimeKind.Unspecified).AddTicks(9358), new TimeSpan(0, 9, 0, 0, 0)), new Guid("b0ce9f2f-a206-43ee-849d-2013add0fd58"), 16384.0, 65536.0, "example.com", "てすとだよ", "Test", "Test" });
         }
 
         /// <inheritdoc />

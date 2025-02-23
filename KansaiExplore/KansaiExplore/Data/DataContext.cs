@@ -17,7 +17,10 @@ namespace KansaiExplore.Data
                     CreatedBy = Guid.NewGuid(),
                     MediaUrl = "example.com",
                     SpotDescription = "てすとだよ",
-                    SpotName = "Test"
+                    SpotName = "Test",
+                    Longitude = 65536,
+                    Latitude = 16384,
+                    Valuation = "Test"
                 });
         }
         public DbSet<NicheSpot> kansaispot { get; set; }
