@@ -20,6 +20,6 @@ namespace KansaiExplore.Data
                     SpotName = "Test"
                 });
         }
-        public DbSet<NicheSpot> Spots { get; set; }
+        public DbSet<NicheSpot> kansaispot { get; set; }
     }
 }

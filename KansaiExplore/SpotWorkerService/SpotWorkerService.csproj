@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-SpotWorkerService-7f560850-7aee-4bc9-8510-25858df9aced</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KansaiExplore.ServiceDefaults\KansaiExplore.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\KansaiExplore\KansaiExplore.csproj" />
+  </ItemGroup>
+</Project>

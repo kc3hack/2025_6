@@ -5,7 +5,6 @@
 @using Microsoft.EntityFrameworkCore
 
 @inject NavigationManager NavigationManager
-@inject IDbContextFactory<SpotDbContext> DBFactory
 @attribute [Authorize]
 <script src="leaflet.js"></script>
 <PageTitle>スポットの追加</PageTitle>
@@ -37,19 +36,19 @@
 
     private async Task Add()
     {
-        var spotData = new SpotDbContext.NicheSpotData
-        {
-            Id = Guid.NewGuid(),
-            SpotName = SpotInput.SpotName,
-            SpotDescription = SpotInput.SpotDesc,
-            Choordinates = "23.4340, 135.22134",
-            CreatedAt = DateTime.Now,
-            MediaUrl = "localhost/medias/16384",
-            CreatedBy = Guid.NewGuid()
-        };
+        // var spotData = new SpotDbContext.NicheSpotData
+        // {
+        //     Id = Guid.NewGuid(),
+        //     SpotName = SpotInput.SpotName,
+        //     SpotDescription = SpotInput.SpotDesc,
+        //     Choordinates = "23.4340, 135.22134",
+        //     CreatedAt = DateTime.Now,
+        //     MediaUrl = "localhost/medias/16384",
+        //     CreatedBy = Guid.NewGuid()
+        // };
 
-        using var dbFactory = DBFactory.CreateDbContext();
-        dbFactory.Add(spotData);
+        // using var dbFactory = DBFactory.CreateDbContext();
+        // dbFactory.Add(spotData);
     }
 
     private sealed class SpotInputModel

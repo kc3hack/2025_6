@@ -5,7 +5,6 @@ using KansaiExplore.Components;
 using KansaiExplore.Components.Account;
 using KansaiExplore.Data;
 using KansaiExplore;
-using KansaiExplore.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,15 +29,15 @@ builder.Services.AddAuthentication(options =>
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<DataContext>(options =>
+options.UseNpgsql(builder.Configuration.GetConnectionString("db")));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager()
     .AddDefaultTokenProviders();
-builder.Services.AddDbContext<SpotDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("db")));
-builder.Services.AddScoped<ISpotService, SpotService>();
+
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 var app = builder.Build();
