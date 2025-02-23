@@ -1,0 +1,51 @@
+﻿@page "/spotdetail"
+@using KansaiExplore.Data
+@using KansaiExplore.Data.Shared
+@using Microsoft.EntityFrameworkCore
+
+@inject NavigationManager NavigationManager
+@inject IDbContextFactory<DataContext> DbContextFactory
+@inject IJSRuntime JSRuntime;
+
+<h3>SpotDetail</h3>
+<h4>@Title について</h4>
+<p>
+    @Detail
+</p>
+<h4>評価</h4>
+<p>@Valuation</p>
+<a class="btn btn-primary" href="@mapRef" target="_blank">Google Map</a>
+@code {
+    [SupplyParameterFromQuery]
+    [Parameter]
+    public string? Id { get; set; }
+
+    private string Title = "";
+    private string Detail = "";
+    private string Valuation = "";
+    private string mapRef = "";
+    private NicheSpot spot;
+
+    protected override void OnInitialized()
+    {
+        Guid guid = Guid.NewGuid();
+        if (Id is null || !Guid.TryParse(Id, out guid))
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        using var context = DbContextFactory.CreateDbContext();
+        var s = context.kansaispot.Where(te => te.Id == guid).ToArray()[0];
+        Title = s.SpotName;
+        Detail = s.SpotDescription;
+        Valuation = s.Valuation;
+        spot = s;
+        mapRef = $"https://www.google.com/maps/search/?api=1&query={spot.Latitude},{spot.Longitude}";
+    }
+
+    private async void RedirectToMap()
+    {
+        if (spot is null)
+            return;
+        await JSRuntime.InvokeVoidAsync("open", $"https://www.google.com/maps/search/?api=1&query={spot.Latitude},{spot.Longitude}", "_blank");
+    }
+}
