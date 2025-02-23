@@ -1,11 +1,13 @@
 ﻿@page "/addspot"
 @using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
 @using System.ComponentModel.DataAnnotations
 @using KansaiExplore.Data
 @using KansaiExplore.Data.Shared
 @using Microsoft.EntityFrameworkCore
 
 @inject NavigationManager NavigationManager
+@inject UserManager<ApplicationUser> UserManager
 @inject IDbContextFactory<DataContext> DbContextFactory
 @attribute [Authorize]
 <script src="leaflet.js"></script>
@@ -44,9 +46,18 @@
 
 @code {
     [CascadingParameter]
-    private HttpContent HttpContent { get; set; } = default!;
+    private HttpContext HttpContext { get; set; } = default!;
     [SupplyParameterFromForm]
     private SpotInputModel SpotInput { get; set; } = new();
+    private IdentityUser user = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await UserManager.GetUserAsync(HttpContext.User);
+        if (user is null)
+            NavigationManager.NavigateTo("/Account/InvalidUser");
+        Console.WriteLine(user.Id);
+    }
 
     private async Task Add()
     {
@@ -58,7 +69,7 @@
             Choordinates = "23.4340, 135.22134",
             CreatedAt = DateTimeOffset.UtcNow,
             MediaUrl = "localhost/medias/16384",
-            CreatedBy = Guid.NewGuid(),
+            CreatedBy = Guid.Parse(user.Id),
             Longitude = SpotInput.Longitude,
             Latitude = SpotInput.Latitude,
             Valuation = SpotInput.Valuation
