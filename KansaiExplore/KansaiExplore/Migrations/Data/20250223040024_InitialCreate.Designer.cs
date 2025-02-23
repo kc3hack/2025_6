@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KansaiExplore.Migrations.Data
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250223024058_InitialCreate")]
+    [Migration("20250223040024_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -44,6 +44,14 @@ namespace KansaiExplore.Migrations.Data
                         .HasColumnType("uuid")
                         .HasColumnName("created_by");
 
+                    b.Property<decimal>("Latitude")
+                        .HasColumnType("numeric")
+                        .HasColumnName("latitude");
+
+                    b.Property<decimal>("Longitude")
+                        .HasColumnType("numeric")
+                        .HasColumnName("longitude");
+
                     b.Property<string>("MediaUrl")
                         .IsRequired()
                         .HasColumnType("text")
@@ -66,10 +74,12 @@ namespace KansaiExplore.Migrations.Data
                     b.HasData(
                         new
                         {
-                            Id = new Guid("22489572-e6ee-44a5-b283-8404617d9dbf"),
+                            Id = new Guid("cf24d8e7-48cf-42a8-9828-0ed5eea8ab03"),
                             Choordinates = "13333,1111",
-                            CreatedAt = new DateTimeOffset(new DateTime(2025, 2, 23, 11, 40, 57, 777, DateTimeKind.Unspecified).AddTicks(1451), new TimeSpan(0, 9, 0, 0, 0)),
-                            CreatedBy = new Guid("2845c155-9160-49f8-95d0-2c9060f24490"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 2, 23, 13, 0, 24, 391, DateTimeKind.Unspecified).AddTicks(3534), new TimeSpan(0, 9, 0, 0, 0)),
+                            CreatedBy = new Guid("f93f84f8-c150-437f-b62a-c015ca92a41c"),
+                            Latitude = 0m,
+                            Longitude = 0m,
                             MediaUrl = "example.com",
                             SpotDescription = "てすとだよ",
                             SpotName = "Test"

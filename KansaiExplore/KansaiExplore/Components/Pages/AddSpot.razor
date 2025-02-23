@@ -2,9 +2,11 @@
 @using Microsoft.AspNetCore.Authorization
 @using System.ComponentModel.DataAnnotations
 @using KansaiExplore.Data
+@using KansaiExplore.Data.Shared
 @using Microsoft.EntityFrameworkCore
 
 @inject NavigationManager NavigationManager
+@inject IDbContextFactory<DataContext> DbContextFactory
 @attribute [Authorize]
 <script src="leaflet.js"></script>
 <PageTitle>スポットの追加</PageTitle>
@@ -36,17 +38,19 @@
 
     private async Task Add()
     {
-        // var spotData = new SpotDbContext.NicheSpotData
-        // {
-        //     Id = Guid.NewGuid(),
-        //     SpotName = SpotInput.SpotName,
-        //     SpotDescription = SpotInput.SpotDesc,
-        //     Choordinates = "23.4340, 135.22134",
-        //     CreatedAt = DateTime.Now,
-        //     MediaUrl = "localhost/medias/16384",
-        //     CreatedBy = Guid.NewGuid()
-        // };
-
+        var spotData = new NicheSpot()
+        {
+            Id = Guid.NewGuid(),
+            SpotName = SpotInput.SpotName,
+            SpotDescription = SpotInput.SpotDesc,
+            Choordinates = "23.4340, 135.22134",
+            CreatedAt = DateTimeOffset.UtcNow,
+            MediaUrl = "localhost/medias/16384",
+            CreatedBy = Guid.NewGuid()
+        };
+        using var context = DbContextFactory.CreateDbContext();
+        context.kansaispot.Add(spotData);
+        await context.SaveChangesAsync();
         // using var dbFactory = DBFactory.CreateDbContext();
         // dbFactory.Add(spotData);
     }

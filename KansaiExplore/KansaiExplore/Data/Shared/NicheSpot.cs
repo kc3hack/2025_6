@@ -20,5 +20,9 @@ namespace KansaiExplore.Data.Shared
         public string MediaUrl { get; set; }
         [Column("created_at")]
         public DateTimeOffset CreatedAt { get; set; }
+        [Column("latitude")]
+        public decimal Latitude { get; set; }
+        [Column("longitude")]
+        public decimal Longitude { get; set; }
     }
 }
