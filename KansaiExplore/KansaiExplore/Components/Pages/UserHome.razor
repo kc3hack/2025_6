@@ -1,0 +1,33 @@
+﻿@page "/userhome"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using KansaiExplore.Data.Shared
+@using KansaiExplore.Data
+@using Microsoft.EntityFrameworkCore
+@attribute [Authorize]
+@inject NavigationManager NavigationManager
+@inject IDbContextFactory<DataContext> DbContextFactory
+
+
+<h3>UserHome</h3>
+
+<a href="@href">@SpotName</a>
+
+@code {
+    private List<NicheSpot> Spots;
+    private string href = "";
+    private string SpotName = "";
+    protected override async Task OnInitializedAsync()
+    {
+        var r = new Random();
+        using var context = DbContextFactory.CreateDbContext();
+        var d = context.kansaispot.ElementAt(r.Next(context.kansaispot.Count()));
+        SpotName = d.SpotName;
+        href = $"/spotdetail?Id={d.Id.ToString()}";
+    }
+
+    private void JumpTO()
+    {
+        
+    }
+}
