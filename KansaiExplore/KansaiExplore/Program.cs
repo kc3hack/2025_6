@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using KansaiExplore.Components;
 using KansaiExplore.Components.Account;
 using KansaiExplore.Data;
+using KansaiExplore;
+using KansaiExplore.Services;
+using DPBlazorMapLibrary_Net8;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +16,7 @@ builder.AddServiceDefaults();
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-
+builder.Services.AddMapService();
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
@@ -28,15 +32,19 @@ builder.Services.AddAuthentication(options =>
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+builder.Services.AddDbContextFactory<DataContext>(options =>
+options.UseNpgsql(builder.Configuration.GetConnectionString("db")));
+builder.Services.AddScoped<INearSpots, NearSpots>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddGeolocationServices();
 
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager()
     .AddDefaultTokenProviders();
 
-builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
+builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 var app = builder.Build();
 
 app.MapDefaultEndpoints();

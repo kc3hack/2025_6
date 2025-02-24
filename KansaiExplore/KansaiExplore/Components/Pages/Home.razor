@@ -1,7 +1,44 @@
 ﻿@page "/"
-
+@using DPBlazorMapLibrary_Net8
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, world!</h1>
 
-Welcome to your new app.
+
+<style>
+    .mapClass {
+    height: 50vh;
+    width: 50vw;
+    }
+</style>
+
+<Map @ref="mapref" MapOptions="mapOptions" CssClass="mapClass" AfterRender="@AfterMapRender">
+</Map>
+
+@code{
+    private MapOptions mapOptions;
+    private Map? mapref;
+    [Inject]
+    public LayerFactory? LayerFactory { get; init; }
+    [Inject]
+    public IIconFactory? IconFactory { get; init; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        mapOptions = new MapOptions()
+            {
+                Center = new LatLng(34.6046389, 135.6541111),
+                Zoom = 11,
+            };
+    }
+
+    private async Task AfterMapRender()
+    {
+        var tileLayerOptions = new TileLayerOptions()
+            {
+                Attribution = "© <a href=\"https://maps.gsi.go.jp/development/ichiran.html\">地理院タイル</a>",
+            };
+        var mainTileLayer = await LayerFactory.CreateTileLayerAndAddToMap("https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png", mapref, tileLayerOptions);
+    }
+}
