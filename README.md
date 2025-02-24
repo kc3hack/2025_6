@@ -1,7 +1,7 @@
 # Kansai　Exproler 
 <!-- プロダクト名に変更してください -->
 
-![プロダクト名](https://cdn.discordapp.com/attachments/1317349518416674900/1343293772812914688/image.png?ex=67bcbf50&is=67bb6dd0&hm=d3fa75bee13469a80b03208e2e15d246fefaaa2ebb5982f82fba14b98473deab&)
+![Kansai Exproler](https://cdn.discordapp.com/attachments/1317349518416674900/1343293772812914688/image.png?ex=67bcbf50&is=67bb6dd0&hm=d3fa75bee13469a80b03208e2e15d246fefaaa2ebb5982f82fba14b98473deab&)
 <!-- プロダクト名・イメージ画像を差し変えてください -->
 
 
